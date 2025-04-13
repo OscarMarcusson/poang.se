@@ -1,0 +1,11 @@
+<div class="section" [class.display]="displayLogin">
+  <app-login-page />
+</div>
+
+<div class="section" [class.display]="!displayLogin">
+  <main class="main">
+    <h1>Poäng.se</h1>
+  </main>
+
+  <router-outlet />
+</div>
