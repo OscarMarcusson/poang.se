@@ -5,6 +5,7 @@ import {
   HostBinding,
   HostListener,
   Input,
+  input,
   Output,
 } from "@angular/core";
 
@@ -16,15 +17,14 @@ import {
   styleUrl: "./button.component.scss",
   host: {
     "tabindex": "0",
+    "[class]": "this.style()",
+    "[class.loading]": "this.loading()",
   },
 })
 export class ButtonComponent {
-  @Input()
-  label = "";
-
-  @HostBinding("class")
-  @Input()
-  style: undefined | "submit";
+  label = input<string>("");
+  style = input<undefined | "submit">();
+  loading = input<boolean>(false);
 
   @Output()
   click = new EventEmitter();

@@ -3,10 +3,12 @@
   --center: var(--theme-accent-light);
   --background: var(--theme-button);
   --gradient: 93%;
+  --border: var(--theme-border);
 
   color: var(--text);
   background: var(--background);
 
+  position: relative;
   font-size: 1rem;
   font-weight: 700;
   padding: 0.25rem;
@@ -28,13 +30,13 @@
     var(--inner-color),
     var(--background)
   );
-  border: 1px solid var(--theme-border);
+  border: 1px solid var(--border);
 
   &:hover,
   &:focus {
     --text: var(--theme-accent-light);
     --background: var(--theme-button-hover);
-    border-color: var(--theme-accent);
+    --border: var(--theme-accent);
   }
 
   &.submit {
@@ -42,7 +44,7 @@
     --center: var(--theme-accent-light);
     --text: var(--theme-background);
     --gradient: 40%;
-    border-color: var(--theme-accent);
+    --border: var(--theme-accent);
 
     --inner-shadow: rgba(0, 0, 0, 0.182);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.11), 0 0 7px var(--inner-shadow);
@@ -50,10 +52,71 @@
     &:hover,
     &:focus {
       --gradient: 0%;
-      border-color: var(--theme-accent-light);
+      --border: var(--theme-accent-light);
       --inner-shadow: color-mix(in oklab, var(--background) 50%, transparent);
       outline: 2px solid var(--theme-accent-light);
       outline-offset: -2px;
+    }
+  }
+}
+
+// Loading animations
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  mix-blend-mode: color-dodge;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  animation: Animation 2s linear infinite;
+  background: linear-gradient(
+    45deg,
+    transparent 20%,
+    var(--theme-accent) 49%,
+    var(--theme-accent-light) 50%,
+    var(--theme-accent) 51%,
+    transparent 80%
+  );
+
+  &.secondary {
+    animation-duration: 3.4s;
+    background: linear-gradient(
+      45deg,
+      transparent 20%,
+      var(--theme-accent) 50%,
+      transparent 80%
+    );
+  }
+
+  background-size: 200% 200% !important;
+}
+
+@keyframes Animation {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+:host.loading {
+  --text: var(--theme-text-soft);
+  --border: var(--theme-accent);
+
+  .overlay {
+    opacity: 0.2;
+  }
+
+  &.submit {
+    --text: var(--theme-background);
+    --border: var(--theme-accent-soft);
+    .overlay {
+      opacity: 0.35;
     }
   }
 }
