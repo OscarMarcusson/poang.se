@@ -1,1 +1,23 @@
-<p>login-page works!</p>
+<h1>POÄNG.SE</h1>
+<p>
+  Denna webbsida är fortfarande under utveckling,
+  <br />
+  det går därför inte att skapa ett eget konto just nu.
+</p>
+<form class="inputs">
+  <app-input
+    #nameField
+    [(value)]="name"
+    [label]="'Användarnamn'"
+    (onEnter)="selectPassword()"
+  />
+  <app-input
+    #passwordField
+    [(value)]="password"
+    [label]="'Lösenord'"
+    [hide]="true"
+    (onEnter)="login()"
+  />
+  <app-button label="Logga in" (click)="login()" [style]="'submit'" />
+  <app-button label="Registrera" (click)="login()" />
+</form>
