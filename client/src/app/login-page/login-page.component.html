@@ -18,6 +18,11 @@
     [hide]="true"
     (onEnter)="login()"
   />
-  <app-button label="Logga in" (click)="login()" [style]="'submit'" />
-  <app-button label="Registrera" (click)="login()" />
+  <app-button
+    #loginButton
+    label="Logga in"
+    (click)="login()"
+    [style]="'submit'"
+  />
+  <app-button #registerButton label="Registrera" (click)="register()" />
 </form>

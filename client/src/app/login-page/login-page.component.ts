@@ -1,4 +1,10 @@
-import { Component, ViewChild } from "@angular/core";
+import {
+  Component,
+  ComponentRef,
+  computed,
+  ViewChild,
+  viewChild,
+} from "@angular/core";
 import { InputComponent } from "../input/input.component";
 import { ButtonComponent } from "../button/button.component";
 
@@ -10,30 +16,33 @@ import { ButtonComponent } from "../button/button.component";
   styleUrl: "./login-page.component.scss",
 })
 export class LoginPageComponent {
-  name: string = "";
-  password: string = "";
+  name = "";
+  password = "";
 
-  @ViewChild("nameField")
-  nameField!: InputComponent;
+  nameField = viewChild<InputComponent>("nameField");
+  passwordField = viewChild<InputComponent>("passwordField");
+  loginButton = viewChild<ButtonComponent>("loginButton");
+  registerButton = viewChild<ButtonComponent>("registerButton");
 
-  @ViewChild("passwordField")
-  passwordField!: InputComponent;
-
-  login() {
-    console.warn(this.nameField);
-    // event.preventDefault();
-    // event.stopPropagation();
-    console.log(this.name);
-    return false;
+  protected login() {
+    this.loginButton()?.focus();
+    console.warn("Implementera inloggning med " + this.name);
+    // TODO: Implementera
+    this.password = "";
   }
 
-  selectSubmit() {
-    throw new Error("Method not implemented.");
+  protected register() {
+    this.registerButton()?.focus();
+    console.warn("Implementera användarregistrering");
+    // TODO: Implementera
+    this.password = "";
   }
-  selectUserName() {
-    this.nameField.focus();
+
+  protected selectUserName() {
+    this.nameField()?.focus();
   }
-  selectPassword() {
-    this.passwordField.focus();
+
+  protected selectPassword() {
+    this.passwordField()?.focus();
   }
 }
