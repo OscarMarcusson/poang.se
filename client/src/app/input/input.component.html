@@ -1,9 +1,9 @@
 <input
   #input
-  type="text"
+  [type]="hide ? 'password' : 'text'"
   [placeholder]="label"
   [value]="value"
   (input)="onValueChanged($event)"
-  (keydown)="onKey($event)"
+  (keyup)="onKey($event)"
   (focus)="onFocus()"
 />

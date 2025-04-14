@@ -23,14 +23,11 @@ export class InputComponent {
   @Input()
   label: string = "";
 
+  @Input()
+  hide = false;
+
   @Output()
   onEnter = new EventEmitter();
-
-  @Output()
-  onDown = new EventEmitter();
-
-  @Output()
-  onUp = new EventEmitter();
 
   @ViewChild("input")
   protected input!: ElementRef<HTMLInputElement>;
@@ -41,7 +38,8 @@ export class InputComponent {
 
   protected onFocus() {
     this.input.nativeElement.selectionStart = 0;
-    this.input.nativeElement.selectionEnd = this.input.nativeElement.value.length;
+    this.input.nativeElement.selectionEnd =
+      this.input.nativeElement.value.length;
   }
 
   protected onValueChanged(event: any) {
@@ -52,20 +50,12 @@ export class InputComponent {
   protected onKey(event: KeyboardEvent) {
     switch (event.key) {
       case "Enter":
-      case "ArrowUp":
-      case "ArrowDown":
         event.preventDefault();
         event.stopPropagation();
 
         switch (event.key) {
           case "Enter":
             this.onEnter.emit();
-            break;
-          case "ArrowUp":
-            this.onUp.emit();
-            break;
-          case "ArrowDown":
-            this.onDown.emit();
             break;
         }
         break;
