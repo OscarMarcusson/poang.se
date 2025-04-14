@@ -1,0 +1,29 @@
+@use "theme.scss";
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(max(11px, min(2.5vw, 16px)));
+  transition: none;
+}
+
+body {
+  background: var(--theme-background);
+}
+
+html,
+body,
+app-root,
+app-root > .section {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  color: var(--theme-text-soft);
+}

@@ -1,0 +1,23 @@
+html {
+  --theme-accent-soft: #e3f1ff;
+  --theme-accent: #9e68e0;
+  --theme-accent-light: #be93f1;
+
+  --thee-accent-ok: #368a36;
+
+  // Text
+  --theme-text: var(--theme-accent-soft);
+  --theme-text-soft: color-mix(
+    in oklab,
+    var(--theme-accent-soft) 60%,
+    transparent
+  );
+
+  // Buttons
+  --theme-button: #0f1218;
+  --theme-button-hover: #161920;
+
+  --theme-border: #323847;
+
+  --theme-background: #131314;
+}
