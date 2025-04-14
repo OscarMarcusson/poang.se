@@ -18,6 +18,7 @@ input {
   background: var(--theme-background);
   color: var(--theme-text);
   border-bottom: 1px solid var(--theme-border);
+  caret-color: var(--theme-accent-light);
 
   // For autofill in Firefox
   box-shadow: inset 0 0 0 2em var(--theme-background);
@@ -26,5 +27,18 @@ input {
   &::placeholder {
     color: var(--theme-text-soft);
     -webkit-text-fill-color: var(--theme-text-soft);
+  }
+
+  &:focus {
+    color: var(--theme-text);
+    -webkit-text-fill-color: var(--theme-text);
+    border-color: var(--theme-accent);
+  }
+
+  &::selection,
+  &::-moz-selection {
+    color: var(--theme-background);
+    -webkit-text-fill-color: var(--theme-background);
+    background: var(--theme-accent-soft);
   }
 }

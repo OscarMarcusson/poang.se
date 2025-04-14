@@ -6,6 +6,9 @@ import { Component, HostBinding, Input } from "@angular/core";
   imports: [],
   templateUrl: "./button.component.html",
   styleUrl: "./button.component.scss",
+  host: {
+    "tabindex": "0",
+  },
 })
 export class ButtonComponent {
   @Input()

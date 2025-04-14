@@ -30,9 +30,11 @@
   );
   border: 1px solid var(--theme-border);
 
-  &:hover {
+  &:hover,
+  &:focus {
     --text: var(--theme-accent-light);
     --background: var(--theme-button-hover);
+    border-color: var(--theme-accent);
   }
 
   &.submit {
@@ -45,7 +47,8 @@
     --inner-shadow: rgba(0, 0, 0, 0.182);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.11), 0 0 7px var(--inner-shadow);
 
-    &:hover {
+    &:hover,
+    &:focus {
       --gradient: 0%;
       border-color: var(--theme-accent-light);
       --inner-shadow: color-mix(in oklab, var(--background) 50%, transparent);
