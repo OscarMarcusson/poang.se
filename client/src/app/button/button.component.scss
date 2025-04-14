@@ -1,0 +1,56 @@
+:host {
+  --text: var(--theme-accent-soft);
+  --center: var(--theme-accent-light);
+  --background: var(--theme-button);
+  --gradient: 93%;
+
+  color: var(--text);
+  background: var(--background);
+
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.25rem;
+  margin: 0;
+  border-radius: 0.25rem;
+  outline: none;
+  user-select: none;
+  box-sizing: border-box;
+  text-align: center;
+
+  --inner-color: color-mix(
+    in oklab,
+    var(--background) var(--gradient),
+    var(--center)
+  );
+  background: linear-gradient(
+    90deg,
+    var(--background),
+    var(--inner-color),
+    var(--background)
+  );
+  border: 1px solid var(--theme-border);
+
+  &:hover {
+    --text: var(--theme-accent-light);
+    --background: var(--theme-button-hover);
+  }
+
+  &.submit {
+    --background: var(--theme-accent);
+    --center: var(--theme-accent-light);
+    --text: var(--theme-background);
+    --gradient: 40%;
+    border-color: var(--theme-accent);
+
+    --inner-shadow: rgba(0, 0, 0, 0.182);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.11), 0 0 7px var(--inner-shadow);
+
+    &:hover {
+      --gradient: 0%;
+      border-color: var(--theme-accent-light);
+      --inner-shadow: color-mix(in oklab, var(--background) 50%, transparent);
+      outline: 2px solid var(--theme-accent-light);
+      outline-offset: -2px;
+    }
+  }
+}
