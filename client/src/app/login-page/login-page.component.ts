@@ -1,10 +1,4 @@
-import {
-  Component,
-  ComponentRef,
-  computed,
-  ViewChild,
-  viewChild,
-} from "@angular/core";
+import { Component, viewChild } from "@angular/core";
 import { InputComponent } from "../input/input.component";
 import { ButtonComponent } from "../button/button.component";
 
@@ -16,26 +10,54 @@ import { ButtonComponent } from "../button/button.component";
   styleUrl: "./login-page.component.scss",
 })
 export class LoginPageComponent {
-  name = "";
-  password = "";
+  protected name = "";
+  protected password = "";
+  protected loadingLogin = false;
+  protected loadingRegister = false;
 
-  nameField = viewChild<InputComponent>("nameField");
-  passwordField = viewChild<InputComponent>("passwordField");
-  loginButton = viewChild<ButtonComponent>("loginButton");
-  registerButton = viewChild<ButtonComponent>("registerButton");
+  private nameField = viewChild<InputComponent>("nameField");
+  private passwordField = viewChild<InputComponent>("passwordField");
+  private loginButton = viewChild<ButtonComponent>("loginButton");
+  private registerButton = viewChild<ButtonComponent>("registerButton");
 
   protected login() {
+    if (this.isLoading()) return;
+
     this.loginButton()?.focus();
-    console.warn("Implementera inloggning med " + this.name);
+    this.loadingLogin = true;
+    this.startLoading();
+
     // TODO: Implementera
-    this.password = "";
+    console.warn("Implementera inloggning med " + this.name);
+    this.finishLoading();
   }
 
   protected register() {
+    if (this.isLoading()) return;
+
     this.registerButton()?.focus();
+    this.loadingRegister = true;
+    this.startLoading();
+
     console.warn("Implementera användarregistrering");
     // TODO: Implementera
+    this.finishLoading();
+  }
+
+  private startLoading() {
+    // Ersätt lösenordet med motsvarande *** bara för att det inte direkt ska flimra bort
+    const password = this.password;
+    this.password = "*".repeat(password.length);
+  }
+
+  private isLoading() {
+    return this.loadingLogin || this.loadingRegister;
+  }
+
+  private finishLoading() {
     this.password = "";
+    this.loadingLogin = false;
+    this.loadingRegister = false;
   }
 
   protected selectUserName() {
