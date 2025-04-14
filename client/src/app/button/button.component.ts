@@ -1,4 +1,11 @@
-import { Component, HostBinding, Input } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output,
+} from "@angular/core";
 
 @Component({
   selector: "app-button",
@@ -17,4 +24,18 @@ export class ButtonComponent {
   @HostBinding("class")
   @Input()
   style: undefined | "submit";
+
+  @Output()
+  click = new EventEmitter();
+
+  protected onClick() {
+    this.click.emit();
+  }
+
+  @HostListener("keydown", ["$event"])
+  private onKey(event: KeyboardEvent) {
+    if (event.key == "Enter" || event.key == "Space") {
+      this.onClick();
+    }
+  }
 }
