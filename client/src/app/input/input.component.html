@@ -1,0 +1,9 @@
+<input
+  #input
+  type="text"
+  [placeholder]="label"
+  [value]="value"
+  (input)="onValueChanged($event)"
+  (keydown)="onKey($event)"
+  (focus)="onFocus()"
+/>

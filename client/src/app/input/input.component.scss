@@ -1,0 +1,11 @@
+:host {
+  position: relative;
+  box-sizing: border-box;
+}
+
+input {
+  min-width: unset;
+  max-width: unset;
+  box-sizing: border-box;
+  width: 100%;
+}
