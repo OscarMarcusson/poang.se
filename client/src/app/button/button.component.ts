@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   HostBinding,
   HostListener,
@@ -27,6 +28,13 @@ export class ButtonComponent {
 
   @Output()
   click = new EventEmitter();
+
+  constructor(private host: ElementRef) {
+  }
+
+  focus() {
+    this.host.nativeElement.focus();
+  }
 
   protected onClick() {
     this.click.emit();
