@@ -23,12 +23,12 @@
     label="Logga in"
     (click)="login()"
     [style]="'submit'"
-    [loading]="loadingLogin === 'login'"
+    [loading]="loadingLogin"
   />
   <app-button
     #registerButton
     label="Registrera"
     (click)="register()"
-    [loading]="loadingRegister === 'register'"
+    [loading]="loadingRegister"
   />
 </form>
