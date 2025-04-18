@@ -35,7 +35,8 @@
       margin-top: -1px;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       border-color: var(--theme-accent);
       outline: 1px solid var(--theme-accent);
       outline-offset: -1px;
