@@ -58,6 +58,12 @@
       outline-offset: -2px;
     }
   }
+
+  &.icon {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    width: 2rem;
+  }
 }
 
 // Loading animations

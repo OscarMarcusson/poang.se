@@ -2,10 +2,17 @@
   <app-login-page />
 </div>
 
-<div class="section" [class.display]="!firstAuth && !displayLogin">
+<div class="section main" [class.display]="!firstAuth && !displayLogin">
+  <div class="header">
+    <div class="breadcrumbs">
+      <h2>Översikt</h2>
+      <h2 class="separator">/</h2>
+      <h2>Test</h2>
+    </div>
+    <!-- TODO: Användarikon för knappen -->
+    <app-button label="⋮" [style]="'icon'" />
+  </div>
   <main class="main">
-    <h1>Poäng.se</h1>
+    <router-outlet />
   </main>
-
-  <router-outlet />
 </div>

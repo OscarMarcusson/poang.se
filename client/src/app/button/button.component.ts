@@ -23,7 +23,7 @@ import {
 })
 export class ButtonComponent {
   label = input<string>("");
-  style = input<undefined | "submit">();
+  style = input<undefined | "submit" | "icon">();
   loading = input<boolean>(false);
 
   @Output()
