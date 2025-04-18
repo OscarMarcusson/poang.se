@@ -1,4 +1,5 @@
-import { api } from "./api.ts";
+import { api } from "./api/api.ts";
+import { verifyJWT } from "./api/jwt.ts";
 import { helpPage } from "./helpPage.ts";
 
 const apiRoute = new URLPattern();
@@ -12,20 +13,38 @@ const routes: Record<string, API> = (() => {
   return r;
 })();
 
-Deno.serve({ port }, (request) => {
+Deno.serve({ port }, async (request) => {
   const apiMatch = apiRoute.exec(request.url);
-  const url = apiMatch?.pathname.input ?? "";
+  const parsedRequest: APIRequest = {
+    url: apiMatch?.pathname.input ?? "",
+    cookies: {},
+  };
 
-  console.log("Request:", url);
-  if (url == "/api" || url == "/api/") {
+  const rawCookies = request.headers.get("cookie")?.split(";");
+
+  if (rawCookies) {
+    for (const raw of rawCookies) {
+      const start = raw.indexOf("=");
+      if (start > 0) {
+        const key = raw.substring(0, start);
+        const value = raw.substring(start + 1);
+        parsedRequest.cookies[key] = value;
+      }
+    }
+  }
+  parsedRequest.user = parsedRequest.cookies.auth
+    ? verifyJWT(parsedRequest.cookies.auth)
+    : undefined;
+
+  if (parsedRequest.url == "/api" || parsedRequest.url == "/api/") {
     return new Response(helpPage, {
       status: 200,
       headers: {
         "Content-Type": "text/html; charset=utf-8",
       },
     });
-  } else if (url.startsWith("/api/")) {
-    const route = routes[url];
+  } else if (parsedRequest.url.startsWith("/api/")) {
+    const route = routes[parsedRequest.url];
     if (!route) {
       return new Response("", {
         status: 404,
@@ -35,25 +54,55 @@ Deno.serve({ port }, (request) => {
       });
     }
 
-    // TODO: Parse input, if exists. Auto-validate that some fields exist based in the route.input block
-    const input: unknown = undefined;
-    return route.handler(input);
+    if (route.body) {
+      if (!request.body) {
+        return new Response(
+          "En kropp med följande fält förväntades:\n" +
+            Object.keys(route.body).join("\n"),
+          { status: 400 }
+        );
+      }
+      parsedRequest.payload = {};
+      const body = await request.json();
+      const missing: string[] = [];
+      for (const key in route.body) {
+        if (body[key] !== undefined) {
+          parsedRequest.payload[key] = body[key];
+        } else {
+          missing.push(key);
+        }
+      }
+      if (missing.length > 0) {
+        return new Response("Saknade dessa fält:\n" + missing.join("\n"), {
+          status: 400,
+        });
+      }
+    } else if (request.body) {
+      return new Response(parsedRequest.url + " tar inte emot en kropp", {
+        status: 400,
+      });
+    }
+
+    console.log(parsedRequest);
+    return route.handler(parsedRequest);
   }
 
-  console.log(url);
   return new Response(
-    "TODO: Try to resolve resources by name, otherwise return index.html",
+    "TODO: Try to resolve resources by name, otherwise return index.html"
   );
 });
 
-interface APIRequestUrl {
-  section?: string;
-  task?: string;
-}
-
 export interface API {
   description: string;
-  headers?: Record<string, string>;
+  cookies?: Record<string, string>;
   body?: unknown;
-  handler: (input: unknown) => Response;
+  handler: (input: APIRequest) => Response | Promise<Response>;
+}
+
+export interface APIRequest {
+  url: string;
+  user?: string;
+  cookies: Record<string, string>;
+  // deno-lint-ignore no-explicit-any
+  payload?: any;
 }

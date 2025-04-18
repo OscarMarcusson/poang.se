@@ -1,4 +1,4 @@
-import { api } from "./api.ts";
+import { api } from "./api/api.ts";
 
 export const helpPage = `<html>
   <head>
@@ -55,19 +55,19 @@ export const helpPage = `<html>
       <h2>api/${x}</h2>
       <p>${api[x].description}</p>`;
 
-    const headers = api[x].headers
+    const headers = api[x].cookies
       ? `
-      <h3>HTTP-huvuden</h3>
+      <h3>Kakor</h3>
       <table>
         <tr>
-          <th>Rubrik</th>
+          <th>Nyckel</th>
           <th>Värde</th>
         </tr>
         ${
-        Object.keys(api[x].headers).map((key) =>
+        Object.keys(api[x].cookies).map((key) =>
           `<tr>
           <td>${key}</td>
-          <td>${api[x].headers![key]}</td>
+          <td>${api[x].cookies![key]}</td>
           </tr>`
         ).join("")
       }
