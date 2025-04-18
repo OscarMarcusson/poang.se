@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  flex-grow: 1;
+
+  & > * {
+    width: 0;
+    flex-grow: 1;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  :host {
+    flex-direction: column !important;
+
+    & > * {
+        width: unset;
+        flex-grow: unset;
+    }
+  }
+}

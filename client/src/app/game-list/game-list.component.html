@@ -1,1 +1,16 @@
-<p>game-list works!</p>
+<div class="header">
+  <h2>{{ title() }}</h2>
+  <app-button label="Lägg till" />
+</div>
+
+<div class="list">
+  @for (item of games(); track $index) {
+  <button>
+    <img />
+    <span class="text">
+      <span class="title">{{ item }}</span>
+      <span class="description">Spelare: 1</span>
+    </span>
+  </button>
+  }
+</div>

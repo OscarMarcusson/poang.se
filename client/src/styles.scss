@@ -24,8 +24,24 @@ app-root > .section {
   margin: 0;
 }
 
-p {
-  color: var(--theme-text-soft);
+// Remove default margins
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
+}
+
+p {
+  color: var(--theme-text-soft);
+}
+
+h2 {
+  color: var(--theme-accent-light);
+  font-weight: 100;
+  font-size: 1.4rem;
 }
