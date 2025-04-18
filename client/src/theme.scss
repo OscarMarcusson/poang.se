@@ -8,5 +8,11 @@ html {
   --theme-text-soft: color-mix(in oklab, var(--theme-text) 60%, transparent);
 
   --theme-border: #323847;
+  --theme-border-soft: color-mix(
+    in oklab,
+    var(--theme-border) 50%,
+    transparent
+  );
+
   --theme-background: #131314;
 }
