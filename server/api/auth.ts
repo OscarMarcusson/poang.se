@@ -1,5 +1,4 @@
 import type { API, APIRequest } from "../main.ts";
-import { jsonHeader } from "./api.ts";
 import { createJWT } from "./jwt.ts";
 
 // deno-lint-ignore-file no-explicit-any
@@ -17,9 +16,8 @@ export const apiLoginHandler: API = {
     // TODO: Validate the password for that user
 
     const token = createJWT(payload.user);
-    return new Response("{}", {
+    return new Response(payload.user, {
       headers: {
-        ...jsonHeader,
         "Set-Cookie": `auth=${token}; HttpOnly; Secure; SameSite=Strict`,
       },
     });

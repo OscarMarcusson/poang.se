@@ -1,18 +1,28 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginPageComponent } from "./login-page/login-page.component";
+import { LoginPageComponent } from './login-page/login-page.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, LoginPageComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  protected firstAuth = true;
+  protected displayLogin = true;
   user?: string;
 
-  protected displayLogin() {
-    return Boolean(this.user);
+  private auth = inject(AuthService);
+
+  constructor(changeDetector: ChangeDetectorRef) {
+    this.auth.onChange.asObservable().subscribe(() => {
+      this.firstAuth = false;
+      this.displayLogin = !this.auth.authenticated;
+      this.user = this.auth.name;
+      changeDetector.detectChanges();
+    });
   }
 }

@@ -1,12 +1,14 @@
 import { API } from "../main.ts";
 import { apiLoginHandler } from "./auth.ts";
+import { apiRefreshHandler } from "./refresh.ts";
 
 export const authCookie = { auth: "Användarens åtkomsttoken (JWT)" };
 export const jsonHeader = { "Content-Type": "text/json; charset=utf-8" };
 
 export const api: Record<string, API> = {
-  "auth": apiLoginHandler,
-  "register": {
+  auth: apiLoginHandler,
+  refresh: apiRefreshHandler,
+  register: {
     description: "Skapar en ny användare",
     body: {
       user: "string",
@@ -17,7 +19,7 @@ export const api: Record<string, API> = {
         headers: jsonHeader,
       }),
   },
-  "list": {
+  list: {
     description:
       "Hämtar listan av alla tillgängliga spel för den inloggade användaren",
     cookies: authCookie,

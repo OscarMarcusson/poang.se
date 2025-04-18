@@ -1,8 +1,8 @@
-<div class="section" [class.display]="displayLogin">
+<div class="section" [class.display]="!firstAuth && displayLogin">
   <app-login-page />
 </div>
 
-<div class="section" [class.display]="!displayLogin">
+<div class="section" [class.display]="!firstAuth && !displayLogin">
   <main class="main">
     <h1>Poäng.se</h1>
   </main>
