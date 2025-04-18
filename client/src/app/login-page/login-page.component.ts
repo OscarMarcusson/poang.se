@@ -1,7 +1,7 @@
 import { Component, inject, viewChild } from '@angular/core';
 import { InputComponent } from '../input/input.component';
 import { ButtonComponent } from '../button/button.component';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login-page',

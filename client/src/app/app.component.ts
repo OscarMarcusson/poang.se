@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { AuthService } from './services/auth.service';
-import { ButtonComponent } from "./button/button.component";
+import { AuthService } from './services/auth/auth.service';
+import { ButtonComponent } from './button/button.component';
 
 @Component({
   selector: 'app-root',
