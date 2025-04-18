@@ -6,7 +6,7 @@ const privateKey = "sadljhdsadsaldsahdsaldsas";
 export function createJWT(userId: string): string {
   const jwt = Jwt.sign({ user: userId }, privateKey, {
     // algorithm: "RS256", // TODO: Implement me
-    expiresIn: "1h",
+    expiresIn: "1w",
   });
   return jwt;
 }
