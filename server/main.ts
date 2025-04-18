@@ -1,6 +1,7 @@
 import { api } from "./api/api.ts";
 import { verifyJWT } from "./api/jwt.ts";
 import { helpPage } from "./helpPage.ts";
+import { convertCookieStringToRecord } from "./utility/cookie-parser.ts";
 
 const apiRoute = new URLPattern();
 const port = 8000;
@@ -20,18 +21,9 @@ Deno.serve({ port }, async (request) => {
     cookies: {},
   };
 
-  const rawCookies = request.headers.get("cookie")?.split(";");
-
-  if (rawCookies) {
-    for (const raw of rawCookies) {
-      const start = raw.indexOf("=");
-      if (start > 0) {
-        const key = raw.substring(0, start);
-        const value = raw.substring(start + 1);
-        parsedRequest.cookies[key] = value;
-      }
-    }
-  }
+  parsedRequest.cookies = convertCookieStringToRecord(
+    request.headers.get("cookie")
+  );
   parsedRequest.user = parsedRequest.cookies.auth
     ? verifyJWT(parsedRequest.cookies.auth)
     : undefined;
