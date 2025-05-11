@@ -13,6 +13,12 @@ html {
     var(--theme-border) 50%,
     transparent
   );
+  --theme-border-accent: color-mix(
+    in oklab,
+    var(--theme-accent) 25%,
+    var(--theme-border)
+  );
 
   --theme-background: #131314;
+  --theme-background-light: #14141b;
 }

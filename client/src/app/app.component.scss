@@ -30,7 +30,18 @@
 
   padding-bottom: var(--margin);
   margin-bottom: var(--margin);
-  border-bottom: 1px solid var(--theme-border-soft);
+  border: 1px solid var(--theme-border-accent);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--theme-accent) 10%, var(--theme-background-light))
+      10%,
+    color-mix(in oklab, var(--theme-accent) 3%, var(--theme-background-light)),
+    var(--theme-background-light)
+  );
+
+  transition: 0.3s ease-out;
 
   .breadcrumbs {
     display: flex;
@@ -59,4 +70,17 @@ main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    margin-top: calc(var(--margin) * -1);
+    margin-left: calc(var(--margin) * -1);
+    margin-right: calc(var(--margin) * -1);
+    border-radius: 0;
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+  }
 }
